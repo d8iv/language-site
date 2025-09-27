@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>قصة اللغة — من الإشارة إلى الكلمة | تصميم سينمائي</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #05060a;
+      --bg2: #0f1220;
+      --accent: linear-gradient(90deg,#ff5f6d,#ffc371);
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+      --card: rgba(255,255,255,0.03);
+      --muted: rgba(255,255,255,0.6);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Cairo",system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 400px at 10% 10%, rgba(255,95,109,0.06), transparent),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* Hero */
+    .hero{
+      min-height:70vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:48px;
+      gap:28px;
+    }
+    .hero .left{
+      max-width:780px;
+      backdrop-filter: blur(6px) saturate(120%);
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:20px;
+      background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color: #ffdede;
+      font-weight:600;
+      letter-spacing:0.6px;
+      margin-bottom:18px;
+      font-size:13px;
+    }
+
+    h1{
+      font-family:"Playfair Display", serif;
+      font-weight:700;
+      font-size:40px;
+      line-height:1.05;
+      margin:0 0 14px 0;
+      text-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    p.lead{
+      color:var(--muted);
+      font-size:16px;
+      margin:0 0 22px 0;
+      max-width:66ch;
+    }
+
+    .cta{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-top:10px;
+    }
+    .btn{
+      padding:14px 20px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
+      border: none;
+      background-image: var(--accent);
+      color:#111;
+      box-shadow: 0 10px 30px rgba(255,95,109,0.12);
+      transition: transform .18s ease;
+    }
+    .btn:active{transform:translateY(2px)}
+
+    /* Visual cinematic card */
+    .cinema{
+      flex:0 0 420px;
+      height:360px;
+      border-radius:18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18)),
+        linear-gradient(130deg, rgba(255,95,109,0.06), rgba(255,195,113,0.02));
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      overflow:hidden;
+      position:relative;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .cinema .grid{
+      position:absolute;
+      inset:0;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      grid-auto-rows:1fr;
+      gap:10px;
+      padding:18px;
+    }
+    .tile{
+      border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:12px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-start;
+      font-size:12px;
+      color:rgba(255,255,255,0.9);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+      transform:translateY(10px);
+      opacity:0;
+      animation:pop .9s forwards;
+    }
+    .tile:nth-child(1){ animation-delay:.2s}
+    .tile:nth-child(2){ animation-delay:.35s}
+    .tile:nth-child(3){ animation-delay:.5s}
+    .tile:nth-child(4){ animation-delay:.65s}
+
+    @keyframes pop{
+      to{transform:none;opacity:1}
+    }
+
+    /* Main content */
+    main{padding:36px 48px 120px 48px; max-width:1100px; margin:0 auto}
+    .card{
+      background:var(--card);
+      border-radius:14px;
+      padding:20px;
+      margin-bottom:20px;
+      border:1px solid rgba(255,255,255,0.02);
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+    }
+
+    /* Timeline cinematic */
+    .timeline{
+      position:relative;
+      padding:30px 20px;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute;
+      left:50%;
+      transform:translateX(50%);
+      top:0;
+      bottom:0;
+      width:4px;
+      background:linear-gradient(180deg,#ff5f6d,#ffc371);
+      opacity:0.12;
+      border-radius:4px;
+    }
+    .event{
+      position:relative;
+      width:45%;
+      padding:18px;
+      margin:20px 0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(255,255,255,0.02));
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+    .left-event{ margin-left:0; float:right; clear:both; transform:translateX(40px) }
+    .right-event{ margin-left:55%; transform:translateX(-40px) }
+    .event .dot{
+      position:absolute;
+      top:20px;
+      left:-14px;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:var(--accent);
+      box-shadow:0 8px 20px rgba(255,95,109,0.18);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:#111;
+    }
+    .left-event .dot{ left:auto; right:-14px }
+
+    .evt-year{ font-weight:700; font-size:14px; color:#fff; }
+    .evt-title{ font-weight:700; margin:8px 0; font-size:18px; font-family:"Playfair Display", serif; }
+    .evt-desc{ color:var(--muted); font-size:14px; line-height:1.6; margin:6px 0 0 0 }
+
+    /* Q&A interactive */
+    .qa{ display:grid; gap:12px; grid-template-columns: 1fr; margin-top:12px }
+    .q{
+      background:var(--glass);
+      padding:12px;
+      border-radius:10px;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,0.02);
+      transition: all .22s ease;
+    }
+    .q:hover{ transform:translateY(-6px) }
+    .q .q-head{ display:flex; justify-content:space-between; align-items:center; gap:12px }
+    .q .q-head h4{ margin:0; font-size:15px }
+    .q .a{ margin-top:10px; color:var(--muted); display:none; line-height:1.7 }
+    .q.open .a{ display:block }
+
+    /* examples */
+    .examples{ display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:12px }
+    .ex-card{ padding:16px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18)); border:1px solid rgba(255,255,255,0.02) }
+
+    footer{
+      padding:24px 48px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.25));
+      border-top:1px solid rgba(255,255,255,0.02);
+      position:fixed;
+      left:0; right:0; bottom:0;
+    }
+    .sig{ font-weight:700; color:#ffd9d9; font-size:14px }
+    .muted-sm{ color:var(--muted); font-size:13px }
+
+    /* responsive */
+    @media (max-width:900px){
+      .hero{flex-direction:column; padding:28px}
+      .cinema{width:100%; order:2}
+      .hero .left{order:1}
+      .timeline:before{left:10px; transform:none}
+      .left-event, .right-event{width:100%; margin-left:0; transform:none; float:none}
+      .left-event .dot, .right-event .dot{ right:auto; left:-14px}
+      footer{position:static; border-radius:0; margin-top:18px}
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="left">
+      <div class="eyebrow">رحلة عبر صوت وإشارة — من قبل التاريخ حتى الآن</div>
+      <h1>كيف وُلدت الكلمات؟ — قصة اللغة بـأسلوب سينمائي</h1>
+      <p class="lead">موقع تفاعلي يلخّص ما ناقشنا: كيف انتقلت البشرية من الإشارات والأصوات الغريزية إلى لغات منظمة، كيف صيغت الكلمات مثل "تفاحة" و"فاكهة"، وكيف يدرس اللغويون أصول الكلمات عبر النصوص والجذور الصوتية.</p>
+
+      <div class="cta">
+        <button class="btn" onclick="scrollToSection('timeline')">ابدأ الرحلة</button>
+        <button class="btn" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.06)" onclick="scrollToSection('qa')">الأسئلة والأجوبة</button>
+      </div>
+    </div>
+
+    <div class="cinema" aria-hidden="true">
+      <div class="grid">
+        <div class="tile">قبل الإشارات — تعابير الوجه</div>
+        <div class="tile">أصوات تحذير ونداء</div>
+        <div class="tile">رموز متفق عليها داخل القبيلة</div>
+        <div class="tile">بروز دماغ قادر على النطق</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- summary -->
+    <section class="card" id="summary">
+      <h3 style="margin-top:0;font-family:'Playfair Display',serif">ملخص الرحلة</h3>
+      <p style="color:var(--muted);line-height:1.8">
+        اللغة ليست اختراع شخص واحد — بل نتاج تطور جماعي تدريجي. بدأ البشر بالإيماءات ثم أصوات غريزية (صرخات، ضحك، نداء)، ثم صاروا يربطون أصواتًا برموز ومعانٍ، ومع مرور الزمن تطورت الحنجرة والدماغ مما سمح بإنشاء أصوات أكثر تنوعاً وتركيبها إلى كلمات وجمل. بعد آلاف السنين، قام علماء لغويون بتوثيق هذه الأنظمة (مثل نظام الجذور في العربية) ودراسة أصول الكلمات (علم الألفاظ أو <em>Etymology</em>).
+      </p>
+    </section>
+
+    <!-- timeline -->
+    <section class="card timeline" id="timeline" aria-label="الخط الزمني لتطور اللغة">
+      <div class="event left-event" style="clear:both">
+        <div class="dot">١</div>
+        <div class="evt-year">قبل عشرات الآلاف من السنين</div>
+        <div class="evt-title">إشارات وتعابير</div>
+        <div class="evt-desc">الإنسان الأول استخدم إيماءات اليد، تعابير الوجه، وإشارات جسدية للتواصل — أدوات بصرية بسيطة لكنها فعّالة داخل الجماعة.</div>
+      </div>
+
+      <div class="event right-event">
+        <div class="dot">٢</div>
+        <div class="evt-year">نشاط صوتي بدائي</div>
+        <div class="evt-title">صرخات وتحذيرات</div>
+        <div class="evt-desc">أصوات غريزية مثل الصيحات عند الخطر أو النداء عند العثور على طعام بدأت تأخذ دور إشاري ضمن المجموعة.</div>
+      </div>
+
+      <div class="event left-event">
+        <div class="dot">٣</div>
+        <div class="evt-year">تطور اجتماعي وثقافي</div>
+        <div class="evt-title">الاتفاق على الأصوات</div>
+        <div class="evt-desc">الأفراد يبدأون باتباع نمط صوتي محدد للإشارة إلى شيء ما—وهذا الاتفاق الجماعي هو البذرة الحقيقية للـ"كلمة".</div>
+      </div>
+
+      <div class="event right-event">
+        <div class="dot">٤</div>
+        <div class="evt-year">تغييرات جسدية</div>
+        <div class="evt-title">تحسن الحنجرة والدماغ</div>
+        <div class="evt-desc">تطوّر في تركيب الحنجرة ومناطق الدماغ المسؤولة عن اللغة (مثل مناطق الشّيفرة والكلام) سمح بنطق أصوات مركبة أكثر.</div>
+      </div>
+
+      <div class="event left-event">
+        <div class="dot">٥</div>
+        <div class="evt-year">تدوين اللغة</div>
+        <div class="evt-title">نصوص وشعر ومعاجم</div>
+        <div class="evt-desc">الكتابة والشعر حفِظا الكثير من الكلمات القديمة، ثم جاء علماء اللغة لوصف تنظيمات مثل نظام الجذور في العربية وتوثيق الأصول.</div>
+      </div>
+
+    </section>
+
+    <!-- examples & etymology -->
+    <section class="card" id="examples">
+      <h3 style="font-family:'Playfair Display',serif;margin-top:0">أمثلة توضيحية وأصل الكلمات</h3>
+
+      <div class="examples">
+        <div class="ex-card">
+          <h4 style="margin:0 0 8px">تفاحة — apple</h4>
+          <p style="color:var(--muted);margin:0 0 8px">في الإنجليزية، كلمة <strong>apple</strong> قَدّمت بمعاني أوسع في العصور القديمة ثم تضيق معناها إلى "التفاحة". في العربية <strong>تفاح</strong> اسم قديم للفاكهة، وتحوّر لفظي عبر الاستخدام.</p>
+          <small style="color:var(--muted)">ملاحظة: الكلمات المتماثلة في المعنى عبر لغات مختلفة قد لا تكون من نفس الأصل — هي اتفاقات مستقلة.</small>
+        </div>
+
+        <div class="ex-card">
+          <h4 style="margin:0 0 8px">فاكهة — أصلها جذر "ف ك هـ"</h4>
+          <p style="color:var(--muted);margin:0">الجذر <strong>ف ك هـ</strong> في العربية يرتبط بالفرح واللذّة—مثل "فاكه الرجل" أي انبسط. من هنا اشتق اسم <strong>فاكهة</strong> لما يُؤكل للمتعة.</p>
+        </div>
+
+        <div class="ex-card">
+          <h4 style="margin:0 0 8px">زبالة — garbage</h4>
+          <p style="color:var(--muted);margin:0">العربية: "زبل" كان يعني السماد/روث ثم توسّع إلى "ما يُرمى". الإنجليزية: <em>garbage</em> أصلاً أجزاء بقايا من الطهي ثم صار معناها نفايات عامة.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Q&A -->
+    <section class="card" id="qa">
+      <h3 style="font-family:'Playfair Display',serif;margin-top:0">أسئلة وأجوبة — ما ناقشناه</h3>
+
+      <div class="qa">
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>من اخترع الكلمات؟</h4>
+            <div class="muted-sm">خلاصة</div>
+          </div>
+          <div class="a">
+            لا شخص واحد. الكلمات نتاج اتفاق اجتماعي طويل. فرد بدأ يستخدم صوتًا ليدل على شيء، تقلده الآخرين، وتراكم الاستعمال عبر أجيال حتى استقرّ الصوت ككلمة.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>كيف عرفوا أن كلمة ما مشتقة من جذر معين؟</h4>
+            <div class="muted-sm">علم الجذور</div>
+          </div>
+          <div class="a">
+            في العربية، نظام الجذور الثلاثية يجعل الكلمات المتقاربة في الحروف تظهر معانٍ مشتركة. الباحثون يدرسون الاستخدامات القديمة (الشعر، النصوص) ويجمعون الدلائل ليحدّدوا معنى الجذر.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>كيف اختُرعت كلمات المعاني المجردة (مثل "فرح" إلى "فاكهة")؟</h4>
+            <div class="muted-sm">شعور → اسم</div>
+          </div>
+          <div class="a">
+            الناس في كثير من الأحيان يسمون الأشياء تبعاً للإحساس الذي تولّده لديهم. "فاكهة" جاءت من الجذر الذي يعني اللذة — لذا الكلمة جاءت من الشعور الذي تمنحه الثمرة.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>كيف بدأ البشر يتواصلون قبل وجود كلمات؟</h4>
+            <div class="muted-sm">إيماءات وأصوات</div>
+          </div>
+          <div class="a">
+            البداية كانت بالإيماءات، تعابير الوجه، وأصوات غرائزية. عبر التكرار والاتفاق الاجتماعي تحولت بعض الأصوات إلى رموز، ثم تراكمت الرموز لتصبح كلمات وجمل مع تطور الدماغ والحنجرة.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>كيف يدرس العلماء أصول الكلمات اليوم؟</h4>
+            <div class="muted-sm">منهجيات</div>
+          </div>
+          <div class="a">
+            يعتمدون على: النصوص القديمة والمخطوطات، مقارنة اللغات، قوانين التغير الصوتي، والسياق التاريخي. يقارنون كلمات شبيهة عبر لغات ويتتبعون تغيّر معانيها وشكلها عبر الزمن.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- deeper -->
+    <section class="card">
+      <h3 style="font-family:'Playfair Display',serif;margin-top:0">لمحات تاريخية ونماذج علمية</h3>
+      <p style="color:var(--muted);line-height:1.7">
+        <strong>الخليل بن أحمد الفراهيدي</strong> واحد من أشهر علماء اللغة الذين صنّفوا الجذور ودرسوها بشكل منهجي في العربية — لم يخترع اللغة لكنه نظم ما كان مستخدماً وساعد على فهم علاقة الكلمات بجذورها. 
+        <br><br>
+        في علم اللغة الحديث، يوجد نموذجان بارزان لنشوء اللغة: النموذج الطبيعي التدريجي (لغة تطورت عبر الزمن من الإشارات والأصوات) ونماذج أخرى فلسفية ودينية تراها هبات أو وحيًا — لكن الدليل العلمي الأشد قبولاً يشير إلى تطور تدريجي مرتبط بالدماغ والاجتماع البشري.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="muted-sm">© 2025 — رحلة معرفية مرئية</div>
+    <div class="sig">Design : Osama Al-Jammaz</div>
+  </footer>
+
+  <script>
+    // smooth scroll
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 60, behavior: 'smooth' });
+    }
+
+    // QA toggle
+    function toggleQ(node){
+      node.classList.toggle('open');
+    }
+
+    // small entrance animations for timeline events
+    document.addEventListener('DOMContentLoaded', () => {
+      const events = document.querySelectorAll('.event');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if(e.isIntersecting){
+            e.target.style.transform = 'none';
+            e.target.style.opacity = 1;
+            io.unobserve(e.target);
+          }
+        });
+      }, {threshold:0.15});
+
+      events.forEach(ev => {
+        ev.style.opacity = 0;
+        ev.style.transform = 'translateY(18px)';
+        io.observe(ev);
+      });
+    });
+  </script>
+
+</body>
+</html>
