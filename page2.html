@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>أصوات البشر الأوائل والتحذيرات والطقوس</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #05060a;
+      --bg2: #0f1220;
+      --accent: linear-gradient(90deg,#ff5f6d,#ffc371);
+      --glass: rgba(255,255,255,0.04);
+      --card: rgba(255,255,255,0.03);
+      --muted: rgba(255,255,255,0.6);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; font-family:"Cairo",system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; color:#fff; background: linear-gradient(180deg,var(--bg1),var(--bg2)); }
+    body { padding-bottom: 80px; }
+    h1, h2, h3 { font-family:"Playfair Display", serif; }
+    a { color:#ff5f6d; text-decoration:none; }
+    main{padding:36px 48px; max-width:900px; margin:0 auto}
+    .card{background:var(--card); border-radius:14px; padding:20px; margin-bottom:20px; border:1px solid rgba(255,255,255,0.02); box-shadow: 0 8px 30px rgba(2,6,23,0.6);}
+    .qa{ display:grid; gap:12px; grid-template-columns: 1fr; margin-top:12px }
+    .q{
+      background:var(--glass);
+      padding:12px;
+      border-radius:10px;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,0.02);
+      transition: all .22s ease;
+    }
+    .q:hover{ transform:translateY(-6px) }
+    .q .q-head{ display:flex; justify-content:space-between; align-items:center; gap:12px }
+    .q .q-head h4{ margin:0; font-size:15px }
+    .q .a{ margin-top:10px; color:var(--muted); display:none; line-height:1.7 }
+    .q.open .a{ display:block }
+    footer{
+      padding:24px 48px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.25));
+      border-top:1px solid rgba(255,255,255,0.02);
+      position:fixed;
+      left:0; right:0; bottom:0;
+    }
+    .sig{ font-weight:700; color:#ffd9d9; font-size:14px }
+    .muted-sm{ color:var(--muted); font-size:13px }
+  </style>
+</head>
+<body>
+
+  <main>
+    <section class="card">
+      <h1>أصوات البشر الأوائل والتحذيرات</h1>
+      <p style="color:var(--muted); line-height:1.7">
+        قبل آلاف السنين، استخدم البشر الأوائل أصواتاً بسيطة للتواصل: صرخات عند الخطر، نداءات للغذاء، أو إشارات للتنبيه. هذه الأصوات كانت أهم وسيلة للحفاظ على الجماعة، ولتنظيم الصيد، والدفاع عن النفس.  
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>مناطق تواجدهم الحالية</h2>
+      <p style="color:var(--muted); line-height:1.7">
+        البشر الأوائل عاشوا في مناطق متنوعة، واليوم تُعرف باسم إفريقيا (مهد الإنسانية)، أوروبا الشرقية، وجنوب غرب آسيا. كانوا يعتمدون على الطبيعة المحيطة: الكهوف للملجأ، الأنهار للماء، والغابات للصيد.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>طقوسهم وعاداتهم</h2>
+      <p style="color:var(--muted); line-height:1.7">
+        احتفلوا بأحداث الحياة: الولادة، القتال، جمع الغذاء، والصيد. استخدموا الطبول والأصوات كإشارات جماعية، ونفذوا طقوسًا رمزية للدلالة على الانتماء للجماعة أو للقبيلة. بعض الطقوس تضمنت نقش رموز على الحجر أو دفن عناصر معينة كجزء من الشعائر.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>أسئلة شائعة</h2>
+      <div class="qa">
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>لماذا كانوا يطلقون صرخات تحذيرية؟</h4>
+            <div class="muted-sm">سلامة الجماعة</div>
+          </div>
+          <div class="a">
+            للحفاظ على السلامة، مثل التحذير من حيوانات مفترسة، أو التنبيه عند ظهور خطر أثناء الصيد.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>كيف كانوا يتواصلون بين الجماعات المختلفة؟</h4>
+            <div class="muted-sm">الأصوات والرموز</div>
+          </div>
+          <div class="a">
+            استخدموا أصواتًا محددة، إشارات اليد، ورموزًا مرسومة على الصخور أو الأرض للتواصل بين القبائل.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>ما أهم الطقوس لديهم؟</h4>
+            <div class="muted-sm">الاحتفالات الرمزية</div>
+          </div>
+          <div class="a">
+            طقوس الصيد، ولادة الأطفال، مراسم جمع الطعام، وطقوس دفن الرموز كجزء من الانتماء الديني والاجتماعي.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>أين عاشوا غالبًا؟</h4>
+            <div class="muted-sm">مناطق طبيعية</div>
+          </div>
+          <div class="a">
+            في كهوف وغابات وقرب أنهار، في مناطق أفريقيا، أوروبا الشرقية، وجنوب غرب آسيا.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="muted-sm">© 2025 — رحلة معرفية مرئية</div>
+    <div class="sig"><a href="index.html">عودة للصفحة الرئيسية</a></div>
+  </footer>
+
+  <script>
+    // QA toggle
+    function toggleQ(node){
+      node.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>

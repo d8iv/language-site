@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>تطور الدماغ البشري واللغة</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #05060a;
+      --bg2: #0f1220;
+      --accent: linear-gradient(90deg,#ff5f6d,#ffc371);
+      --glass: rgba(255,255,255,0.04);
+      --card: rgba(255,255,255,0.03);
+      --muted: rgba(255,255,255,0.6);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; font-family:"Cairo",system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; color:#fff; background: linear-gradient(180deg,var(--bg1),var(--bg2)); }
+    body { padding-bottom: 80px; }
+    h1, h2, h3 { font-family:"Playfair Display", serif; }
+    a { color:#ff5f6d; text-decoration:none; }
+    main{padding:36px 48px; max-width:900px; margin:0 auto}
+    .card{background:var(--card); border-radius:14px; padding:20px; margin-bottom:20px; border:1px solid rgba(255,255,255,0.02); box-shadow: 0 8px 30px rgba(2,6,23,0.6);}
+    .qa{ display:grid; gap:12px; grid-template-columns: 1fr; margin-top:12px }
+    .q{
+      background:var(--glass);
+      padding:12px;
+      border-radius:10px;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,0.02);
+      transition: all .22s ease;
+    }
+    .q:hover{ transform:translateY(-6px) }
+    .q .q-head{ display:flex; justify-content:space-between; align-items:center; gap:12px }
+    .q .q-head h4{ margin:0; font-size:15px }
+    .q .a{ margin-top:10px; color:var(--muted); display:none; line-height:1.7 }
+    .q.open .a{ display:block }
+    footer{
+      padding:24px 48px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.25));
+      border-top:1px solid rgba(255,255,255,0.02);
+      position:fixed;
+      left:0; right:0; bottom:0;
+    }
+    .sig{ font-weight:700; color:#ffd9d9; font-size:14px }
+    .muted-sm{ color:var(--muted); font-size:13px }
+  </style>
+</head>
+<body>
+
+  <main>
+    <section class="card">
+      <h1>تطور الدماغ البشري واللغة</h1>
+      <p style="color:var(--muted); line-height:1.7">
+        الدماغ البشري لم يظهر فجأة بكامل تعقيده. على مر آلاف السنين، تطورت مناطق متعددة فيه، خاصة القشرة المخية المسؤولة عن التفكير المعقد واللغة. مع كل تطور، ازداد عدد الخلايا العصبية، وتعقدت الشبكات بينها، مما سمح بتوليد أصوات مركبة وربطها بمعاني محددة.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>الخلايا العصبية والشبكات العصبية</h2>
+      <p style="color:var(--muted); line-height:1.7">
+        الخلايا العصبية هي الوحدة الأساسية للدماغ. كل خلية تتصل بآلاف أخرى عبر مشابك عصبية، مكونة شبكات معقدة. هذه الشبكات تسمح للإنسان بالتمييز بين الأصوات، فهم اللغة، وتوليد الكلام.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>تطور اللغة</h2>
+      <p style="color:var(--muted); line-height:1.7">
+        مع تطور الدماغ، أصبح البشر قادرين على ربط الأصوات بالمعاني، تكوين كلمات وجمل، ونقل المعرفة عبر الأجيال. اللغة تطورت تدريجيًا من أصوات تحذيرية وإيماءات إلى لغات كاملة بتركيب نحوي ومفردات واسعة.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>أسئلة شائعة</h2>
+      <div class="qa">
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>لماذا الدماغ البشري مهم لتطور اللغة؟</h4>
+            <div class="muted-sm">معالجة المعلومات</div>
+          </div>
+          <div class="a">
+            لأنه يحتوي على مناطق متخصصة لمعالجة الأصوات، المعاني، والتراكيب اللغوية، ما يسمح بفهم الكلام وإنشائه.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>ما هي الخلايا العصبية؟</h4>
+            <div class="muted-sm">الوحدة الأساسية</div>
+          </div>
+          <div class="a">
+            الخلايا العصبية هي وحدات دماغية تنقل الإشارات الكهربائية والكيميائية، وتشكل الشبكات التي تدعم التفكير واللغة.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>كيف تشكل الشبكات العصبية اللغة؟</h4>
+            <div class="muted-sm">ترابط الأصوات بالمعاني</div>
+          </div>
+          <div class="a">
+            الشبكات العصبية تسمح بتخزين المعاني، ربط الأصوات بها، وتمكين الفرد من توليد كلمات وجمل مفهومة.
+          </div>
+        </div>
+
+        <div class="q" onclick="toggleQ(this)">
+          <div class="q-head">
+            <h4>هل تطور الدماغ كان سريعًا؟</h4>
+            <div class="muted-sm">عملية تدريجية</div>
+          </div>
+          <div class="a">
+            لا، تطور الدماغ كان تدريجيًا على آلاف السنين، حيث زادت التعقيدات العصبية تدريجيًا مع التكيفات الاجتماعية والبيئية.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="muted-sm">© 2025 — رحلة معرفية مرئية</div>
+    <div class="sig"><a href="index.html">عودة للصفحة الرئيسية</a></div>
+  </footer>
+
+  <script>
+    // QA toggle
+    function toggleQ(node){
+      node.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
