@@ -240,6 +240,27 @@
       .left-event .dot, .right-event .dot{ right:auto; left:-14px}
       footer{position:static; border-radius:0; margin-top:18px}
     }
+    
+    .tile{
+  display:flex;
+  flex-direction:column; /* الصورة فوق النص */
+  align-items:center;
+  justify-content:flex-end;
+  border-radius:10px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:12px;
+  font-size:12px;
+  color:rgba(255,255,255,0.9);
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+
+.tile-img{
+  width:60px;
+  height:60px;
+  object-fit:contain;
+  margin-bottom:6px;
+}
+    
   </style>
 </head>
 <body>
@@ -256,14 +277,30 @@
       </div>
     </div>
 
-    <div class="cinema" aria-hidden="true">
-      <div class="grid">
-        <div class="tile">قبل الإشارات — تعابير الوجه</div>
-        <div class="tile">أصوات تحذير ونداء</div>
-        <div class="tile">رموز متفق عليها داخل القبيلة</div>
-        <div class="tile">بروز دماغ قادر على النطق</div>
-      </div>
+<div class="cinema" aria-hidden="true">
+  <div class="grid">
+    <div class="tile">
+      <img src="https://k.top4top.io/p_3557hhfip3.png" alt="إشارات الوجه" class="tile-img">
+      <span>قبل الإشارات — تعابير الوجه</span>
     </div>
+
+    <div class="tile">
+      <img src="https://i.top4top.io/p_3557rarox1.png" alt="أصوات تحذير" class="tile-img">
+      <span>أصوات تحذير ونداء</span>
+    </div>
+
+    <div class="tile">
+      <img src="https://j.top4top.io/p_35575v6g12.png" alt="رموز متفق عليها" class="tile-img">
+      <span>رموز متفق عليها داخل القبيلة</span>
+    </div>
+
+    <div class="tile">
+      <img src="https://h.top4top.io/p_3557bg1hm0.png" alt="دماغ" class="tile-img">
+      <span>بروز دماغ قادر على النطق</span>
+    </div>
+  </div>
+</div>
+</div>
   </header>
 
   <main>
