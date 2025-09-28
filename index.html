@@ -1,488 +1,1133 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>قصة اللغة — من الإشارة إلى الكلمة | تصميم سينمائي</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-  <style>
-    :root{
-      --bg1: #05060a;
-      --bg2: #0f1220;
-      --accent: linear-gradient(90deg,#ff5f6d,#ffc371);
-      --glass: rgba(255,255,255,0.04);
-      --glass-2: rgba(255,255,255,0.02);
-      --card: rgba(255,255,255,0.03);
-      --muted: rgba(255,255,255,0.6);
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:"Cairo",system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      background: radial-gradient(1200px 400px at 10% 10%, rgba(255,95,109,0.06), transparent),
-                  linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:#fff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
-    }
-
-    /* Hero */
-    .hero{
-      min-height:70vh;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:48px;
-      gap:28px;
-    }
-    .hero .left{
-      max-width:780px;
-      backdrop-filter: blur(6px) saturate(120%);
-    }
-    .eyebrow{
-      display:inline-block;
-      padding:6px 12px;
-      border-radius:20px;
-      background:linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      color: #ffdede;
-      font-weight:600;
-      letter-spacing:0.6px;
-      margin-bottom:18px;
-      font-size:13px;
-    }
-
-    h1{
-      font-family:"Playfair Display", serif;
-      font-weight:700;
-      font-size:40px;
-      line-height:1.05;
-      margin:0 0 14px 0;
-      text-shadow: 0 8px 30px rgba(0,0,0,0.6);
-    }
-    p.lead{
-      color:var(--muted);
-      font-size:16px;
-      margin:0 0 22px 0;
-      max-width:66ch;
-    }
-
-    .cta{
-      display:flex;
-      gap:12px;
-      align-items:center;
-      margin-top:10px;
-    }
-    .btn{
-      padding:14px 20px;
-      border-radius:12px;
-      font-weight:700;
-      cursor:pointer;
-      border: none;
-      background-image: var(--accent);
-      color:#111;
-      box-shadow: 0 10px 30px rgba(255,95,109,0.12);
-      transition: transform .18s ease;
-    }
-    .btn:active{transform:translateY(2px)}
-
-    /* Visual cinematic card */
-    .cinema{
-      flex:0 0 420px;
-      height:360px;
-      border-radius:18px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18)),
-        linear-gradient(130deg, rgba(255,95,109,0.06), rgba(255,195,113,0.02));
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      overflow:hidden;
-      position:relative;
-      border:1px solid rgba(255,255,255,0.03);
-    }
-    .cinema .grid{
-      position:absolute;
-      inset:0;
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      grid-auto-rows:1fr;
-      gap:10px;
-      padding:18px;
-    }
-    .tile{
-      border-radius:10px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:12px;
-      display:flex;
-      align-items:flex-end;
-      justify-content:flex-start;
-      font-size:12px;
-      color:rgba(255,255,255,0.9);
-      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-      transform:translateY(10px);
-      opacity:0;
-      animation:pop .9s forwards;
-    }
-    .tile:nth-child(1){ animation-delay:.2s}
-    .tile:nth-child(2){ animation-delay:.35s}
-    .tile:nth-child(3){ animation-delay:.5s}
-    .tile:nth-child(4){ animation-delay:.65s}
-
-    @keyframes pop{
-      to{transform:none;opacity:1}
-    }
-
-    /* Main content */
-    main{padding:36px 48px 120px 48px; max-width:1100px; margin:0 auto}
-    .card{
-      background:var(--card);
-      border-radius:14px;
-      padding:20px;
-      margin-bottom:20px;
-      border:1px solid rgba(255,255,255,0.02);
-      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
-    }
-
-    /* Timeline cinematic */
-    .timeline{
-      position:relative;
-      padding:30px 20px;
-    }
-    .timeline:before{
-      content:"";
-      position:absolute;
-      left:50%;
-      transform:translateX(50%);
-      top:0;
-      bottom:0;
-      width:4px;
-      background:linear-gradient(180deg,#ff5f6d,#ffc371);
-      opacity:0.12;
-      border-radius:4px;
-    }
-    .event{
-      position:relative;
-      width:45%;
-      padding:18px;
-      margin:20px 0;
-      background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(255,255,255,0.02));
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,0.02);
-    }
-    .left-event{ margin-left:0; float:right; clear:both; transform:translateX(40px) }
-    .right-event{ margin-left:55%; transform:translateX(-40px) }
-    .event .dot{
-      position:absolute;
-      top:20px;
-      left:-14px;
-      width:28px;
-      height:28px;
-      border-radius:50%;
-      background:var(--accent);
-      box-shadow:0 8px 20px rgba(255,95,109,0.18);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:700;
-      color:#111;
-    }
-    .left-event .dot{ left:auto; right:-14px }
-
-    .evt-year{ font-weight:700; font-size:14px; color:#fff; }
-    .evt-title{ font-weight:700; margin:8px 0; font-size:18px; font-family:"Playfair Display", serif; }
-    .evt-desc{ color:var(--muted); font-size:14px; line-height:1.6; margin:6px 0 0 0 }
-
-    /* Q&A interactive */
-    .qa{ display:grid; gap:12px; grid-template-columns: 1fr; margin-top:12px }
-    .q{
-      background:var(--glass);
-      padding:12px;
-      border-radius:10px;
-      cursor:pointer;
-      border:1px solid rgba(255,255,255,0.02);
-      transition: all .22s ease;
-    }
-    .q:hover{ transform:translateY(-6px) }
-    .q .q-head{ display:flex; justify-content:space-between; align-items:center; gap:12px }
-    .q .q-head h4{ margin:0; font-size:15px }
-    .q .a{ margin-top:10px; color:var(--muted); display:none; line-height:1.7 }
-    .q.open .a{ display:block }
-
-    /* examples */
-    .examples{ display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:12px }
-    .ex-card{ padding:16px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.18)); border:1px solid rgba(255,255,255,0.02) }
-
-    footer{
-      padding:24px 48px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.25));
-      border-top:1px solid rgba(255,255,255,0.02);
-      position:fixed;
-      left:0; right:0; bottom:0;
-    }
-    .sig{ font-weight:700; color:#ffd9d9; font-size:14px }
-    .muted-sm{ color:var(--muted); font-size:13px }
-
-    /* responsive */
-    @media (max-width:900px){
-      .hero{flex-direction:column; padding:28px}
-      .cinema{width:100%; order:2}
-      .hero .left{order:1}
-      .timeline:before{left:10px; transform:none}
-      .left-event, .right-event{width:100%; margin-left:0; transform:none; float:none}
-      .left-event .dot, .right-event .dot{ right:auto; left:-14px}
-      footer{position:static; border-radius:0; margin-top:18px}
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مستوصف سملين </title>
     
-    .tile{
-  display:flex;
-  flex-direction:column; /* الصورة فوق النص */
-  align-items:center;
-  justify-content:flex-end;
-  border-radius:10px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  padding:12px;
-  font-size:12px;
-  color:rgba(255,255,255,0.9);
-  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
-}
-
-.tile-img{
-  width:60px;
-  height:60px;
-  object-fit:contain;
-  margin-bottom:6px;
-}
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     
-  </style>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            overflow-x: hidden;
+            background: #0a0e1a;
+        }
+        
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .neon-text {
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8),
+                         0 0 20px rgba(0, 255, 255, 0.6),
+                         0 0 30px rgba(0, 255, 255, 0.4);
+        }
+        
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .popup-content {
+            background: linear-gradient(135deg, #1a1f3a 0%, #0a0e1a 100%);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: popupAppear 0.5s ease-out;
+        }
+        
+        @keyframes popupAppear {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.5);
+            color: #ff4444;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255, 0, 0, 0.4);
+            transform: rotate(90deg);
+        }
+        
+        .department-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .department-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            border-color: rgba(0, 255, 255, 0.5);
+        }
+        
+        .vaccine-card {
+            background: linear-gradient(135deg, rgba(0, 255, 100, 0.1) 0%, rgba(0, 100, 255, 0.1) 100%);
+            border: 1px solid rgba(0, 255, 100, 0.3);
+        }
+        
+        .doctor-card {
+            background: linear-gradient(135deg, rgba(255, 100, 0, 0.1) 0%, rgba(255, 0, 100, 0.1) 100%);
+            border: 1px solid rgba(255, 100, 0, 0.3);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            background: #00ffff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00ffff;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #00ffff, transparent);
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-20px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+    </style>
 </head>
-<body>
-
-  <header class="hero">
-    <div class="left">
-      <div class="eyebrow">رحلة عبر صوت وإشارة — من قبل التاريخ حتى الآن</div>
-      <h1>كيف وُلدت الكلمات؟ — قصة اللغة بـأسلوب سينمائي</h1>
-      <p class="lead">موقع تفاعلي يلخّص ما ناقشنا: كيف انتقلت البشرية من الإشارات والأصوات الغريزية إلى لغات منظمة، كيف صيغت الكلمات مثل "تفاحة" و"فاكهة"، وكيف يدرس اللغويون أصول الكلمات عبر النصوص والجذور الصوتية.</p>
-
-      <div class="cta">
-        <button class="btn" onclick="scrollToSection('timeline')">ابدأ الرحلة</button>
-        <button class="btn" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.06)" onclick="scrollToSection('qa')">الأسئلة والأجوبة</button>
-      </div>
-    </div>
-
-<div class="cinema" aria-hidden="true">
-  <div class="grid">
-    <div class="tile">
-      <img src="https://k.top4top.io/p_3557hhfip3.png" alt="إشارات الوجه" class="tile-img">
-      <span>قبل الإشارات — تعابير الوجه</span>
-    </div>
-
-    <div class="tile">
-      <img src="https://i.top4top.io/p_3557rarox1.png" alt="أصوات تحذير" class="tile-img">
-      <span>أصوات تحذير ونداء</span>
-    </div>
-
-    <div class="tile">
-      <img src="https://j.top4top.io/p_35575v6g12.png" alt="رموز متفق عليها" class="tile-img">
-      <span>رموز متفق عليها داخل القبيلة</span>
-    </div>
-
-    <div class="tile">
-      <img src="https://h.top4top.io/p_3557bg1hm0.png" alt="دماغ" class="tile-img">
-      <span>بروز دماغ قادر على النطق</span>
-    </div>
-  </div>
-</div>
-</div>
-  </header>
-
-  <main>
-    <!-- summary -->
-    <section class="card" id="summary">
-      <h3 style="margin-top:0;font-family:'Playfair Display',serif">ملخص الرحلة</h3>
-      <p style="color:var(--muted);line-height:1.8">
-        اللغة ليست اختراع شخص واحد — بل نتاج تطور جماعي تدريجي. بدأ البشر بالإيماءات ثم أصوات غريزية (صرخات، ضحك، نداء)، ثم صاروا يربطون أصواتًا برموز ومعانٍ، ومع مرور الزمن تطورت الحنجرة والدماغ مما سمح بإنشاء أصوات أكثر تنوعاً وتركيبها إلى كلمات وجمل. بعد آلاف السنين، قام علماء لغويون بتوثيق هذه الأنظمة (مثل نظام الجذور في العربية) ودراسة أصول الكلمات (علم الألفاظ أو <em>Etymology</em>).
-      </p>
+<body class="text-white">
+    <!-- Three.js Canvas Container -->
+    <div id="canvas-container"></div>
+    
+    <!-- Main Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect px-6 py-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center">
+                    <i class="fas fa-hospital text-white text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold neon-text">مستوصف سملين </h1>
+            </div>
+            
+            <div class="hidden md:flex space-x-6 space-x-reverse">
+                <a href="#home" class="hover:text-cyan-400 transition">الرئيسية</a>
+                <a href="#departments" class="hover:text-cyan-400 transition">الأقسام</a>
+                <a href="#doctors" class="hover:text-cyan-400 transition">الأطباء</a>
+                <a href="#vaccines" class="hover:text-cyan-400 transition">اللقاحات</a>
+                <a href="#services" class="hover:text-cyan-400 transition">الخدمات</a>
+                <a href="#contact" class="hover:text-cyan-400 transition">اتصل بنا</a>
+            </div>
+            
+            <button class="md:hidden text-2xl" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative">
+        <div class="text-center z-10 px-4">
+            <h2 class="text-5xl md:text-7xl font-bold mb-6 neon-text">
+                رعاية صحية بتجربة سينمائية
+            </h2>
+            <p class="text-xl md:text-2xl mb-8 text-gray-300 max-w-3xl mx-auto">
+                استكشف عالمنا الطبي ثلاثي الأبعاد واكتشف كل ما تحتاجه من خدمات صحية متكاملة
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <button onclick="openPopup('departments')" class="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full font-bold hover:scale-105 transition transform">
+                    استكشف الأقسام
+                </button>
+                <button onclick="openPopup('appointment')" class="px-8 py-4 glass-effect rounded-full font-bold hover:scale-105 transition transform">
+                    حجز موعد
+                </button>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down text-3xl text-cyan-400"></i>
+        </div>
     </section>
-
-    <!-- timeline -->
-    <section class="card timeline" id="timeline" aria-label="الخط الزمني لتطور اللغة">
-      <div class="event left-event" style="clear:both">
-        <div class="dot">١</div>
-        <div class="evt-year">قبل عشرات الآلاف من السنين</div>
-        <div class="evt-title">إشارات وتعابير</div>
-        <div class="evt-desc">الإنسان الأول استخدم إيماءات اليد، تعابير الوجه، وإشارات جسدية للتواصل — أدوات بصرية بسيطة لكنها فعّالة داخل الجماعة.</div>
-      </div>
-
-      <div class="event right-event">
-        <div class="dot">٢</div>
-        <div class="evt-year">نشاط صوتي بدائي</div>
-        <div class="evt-title">صرخات وتحذيرات</div>
-        <div class="evt-desc">أصوات غريزية مثل الصيحات عند الخطر أو النداء عند العثور على طعام بدأت تأخذ دور إشاري ضمن المجموعة.</div>
-      </div>
-
-      <div class="event left-event">
-        <div class="dot">٣</div>
-        <div class="evt-year">تطور اجتماعي وثقافي</div>
-        <div class="evt-title">الاتفاق على الأصوات</div>
-        <div class="evt-desc">الأفراد يبدأون باتباع نمط صوتي محدد للإشارة إلى شيء ما—وهذا الاتفاق الجماعي هو البذرة الحقيقية للـ"كلمة".</div>
-      </div>
-
-      <div class="event right-event">
-        <div class="dot">٤</div>
-        <div class="evt-year">تغييرات جسدية</div>
-        <div class="evt-title">تحسن الحنجرة والدماغ</div>
-        <div class="evt-desc">تطوّر في تركيب الحنجرة ومناطق الدماغ المسؤولة عن اللغة (مثل مناطق الشّيفرة والكلام) سمح بنطق أصوات مركبة أكثر.</div>
-      </div>
-
-      <div class="event left-event">
-        <div class="dot">٥</div>
-        <div class="evt-year">تدوين اللغة</div>
-        <div class="evt-title">نصوص وشعر ومعاجم</div>
-        <div class="evt-desc">الكتابة والشعر حفِظا الكثير من الكلمات القديمة، ثم جاء علماء اللغة لوصف تنظيمات مثل نظام الجذور في العربية وتوثيق الأصول.</div>
-      </div>
-
+    
+    <!-- Departments Section -->
+    <section id="departments" class="py-20 px-4 relative">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 neon-text">أقسام المستوصف</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Department Card 1 -->
+                <div class="department-card glass-effect rounded-2xl p-6" onclick="openPopup('cardiology')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-heartbeat text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">قسم القلب</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">أحدث التقنيات لتشخيص وعلاج أمراض القلب والأوعية الدموية</p>
+                    <div class="flex items-center text-cyan-400">
+                        <span>اكتشف المزيد</span>
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Department Card 2 -->
+                <div class="department-card glass-effect rounded-2xl p-6" onclick="openPopup('pediatrics')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-baby text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">قسم الأطفال</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">رعاية متخصصة للأطفال منذ الولادة حتى سن المراهقة</p>
+                    <div class="flex items-center text-cyan-400">
+                        <span>اكتشف المزيد</span>
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Department Card 3 -->
+                <div class="department-card glass-effect rounded-2xl p-6" onclick="openPopup('dermatology')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-spa text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">قسم الجلدية</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">علاج جميع الأمراض الجلدية والتجميل بأحدث التقنيات</p>
+                    <div class="flex items-center text-cyan-400">
+                        <span>اكتشف المزيد</span>
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Department Card 4 -->
+                <div class="department-card glass-effect rounded-2xl p-6" onclick="openPopup('orthopedics')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-bone text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">قسم العظام</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">علاج إصابات العظام والمفاصل والعمليات الجراحية الدقيقة</p>
+                    <div class="flex items-center text-cyan-400">
+                        <span>اكتشف المزيد</span>
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Department Card 5 -->
+                <div class="department-card glass-effect rounded-2xl p-6" onclick="openPopup('radiology')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-x-ray text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">قسم الأشعة</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">أجهزة أشعة حديثة لتشخيص دقيق لجميع الحالات</p>
+                    <div class="flex items-center text-cyan-400">
+                        <span>اكتشف المزيد</span>
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Department Card 6 -->
+                <div class="department-card glass-effect rounded-2xl p-6" onclick="openPopup('laboratory')">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-vial text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">قسم المختبر</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">تحاليل دقيقة وسريعة بجودة عالمية</p>
+                    <div class="flex items-center text-cyan-400">
+                        <span>اكتشف المزيد</span>
+                        <i class="fas fa-arrow-left mr-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
-    <!-- examples & etymology -->
-    <section class="card" id="examples">
-      <h3 style="font-family:'Playfair Display',serif;margin-top:0">أمثلة توضيحية وأصل الكلمات</h3>
-
-      <div class="examples">
-        <div class="ex-card">
-          <h4 style="margin:0 0 8px">تفاحة — apple</h4>
-          <p style="color:var(--muted);margin:0 0 8px">في الإنجليزية، كلمة <strong>apple</strong> قَدّمت بمعاني أوسع في العصور القديمة ثم تضيق معناها إلى "التفاحة". في العربية <strong>تفاح</strong> اسم قديم للفاكهة، وتحوّر لفظي عبر الاستخدام.</p>
-          <small style="color:var(--muted)">ملاحظة: الكلمات المتماثلة في المعنى عبر لغات مختلفة قد لا تكون من نفس الأصل — هي اتفاقات مستقلة.</small>
+    
+    <!-- Doctors Section -->
+    <section id="doctors" class="py-20 px-4 relative">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 neon-text">فريقنا الطبي</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Doctor Card 1 -->
+                <div class="doctor-card glass-effect rounded-2xl p-6 text-center">
+                    <img src="https://picsum.photos/seed/doctor1/200/200" alt="د. أحمد محمد" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-orange-400">
+                    <h3 class="text-xl font-bold mb-2">د. أحمد محمد</h3>
+                    <p class="text-gray-400 mb-4">استشاري أمراض القلب</p>
+                    <div class="flex justify-center space-x-4 space-x-reverse">
+                        <button class="w-10 h-10 rounded-full bg-orange-500 bg-opacity-20 hover:bg-opacity-40 transition">
+                            <i class="fas fa-calendar"></i>
+                        </button>
+                        <button class="w-10 h-10 rounded-full bg-orange-500 bg-opacity-20 hover:bg-opacity-40 transition">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Doctor Card 2 -->
+                <div class="doctor-card glass-effect rounded-2xl p-6 text-center">
+                    <img src="https://picsum.photos/seed/doctor2/200/200" alt="د. فاطمة علي" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-green-400">
+                    <h3 class="text-xl font-bold mb-2">د. فاطمة علي</h3>
+                    <p class="text-gray-400 mb-4">استشارية طب الأطفال</p>
+                    <div class="flex justify-center space-x-4 space-x-reverse">
+                        <button class="w-10 h-10 rounded-full bg-green-500 bg-opacity-20 hover:bg-opacity-40 transition">
+                            <i class="fas fa-calendar"></i>
+                        </button>
+                        <button class="w-10 h-10 rounded-full bg-green-500 bg-opacity-20 hover:bg-opacity-40 transition">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Doctor Card 3 -->
+                <div class="doctor-card glass-effect rounded-2xl p-6 text-center">
+                    <img src="https://picsum.photos/seed/doctor3/200/200" alt="د. خالد سالم" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-purple-400">
+                    <h3 class="text-xl font-bold mb-2">د. خالد سالم</h3>
+                    <p class="text-gray-400 mb-4">استشاري الجلدية</p>
+                    <div class="flex justify-center space-x-4 space-x-reverse">
+                        <button class="w-10 h-10 rounded-full bg-purple-500 bg-opacity-20 hover:bg-opacity-40 transition">
+                            <i class="fas fa-calendar"></i>
+                        </button>
+                        <button class="w-10 h-10 rounded-full bg-purple-500 bg-opacity-20 hover:bg-opacity-40 transition">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Doctor Card 4 -->
+                <div class="doctor-card glass-effect rounded-2xl p-6 text-center">
+                    <img src="https://picsum.photos/seed/doctor4/200/200" alt="د. نورة أحمد" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-400">
+                    <h3 class="text-xl font-bold mb-2">د. نورة أحمد</h3>
+                    <p class="text-gray-400 mb-4">استشارية الأشعة</p>
+                    <div class="flex justify-center space-x-4 space-x-reverse">
+                        <button class="w-10 h-10 rounded-full bg-blue-500 bg-opacity-20 hover:bg-opacity-40 transition">
+                            <i class="fas fa-calendar"></i>
+                        </button>
+                        <button class="w-10 h-10 rounded-full bg-blue-500 bg-opacity-20 hover:bg-opacity-40 transition">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="ex-card">
-          <h4 style="margin:0 0 8px">فاكهة — أصلها جذر "ف ك هـ"</h4>
-          <p style="color:var(--muted);margin:0">الجذر <strong>ف ك هـ</strong> في العربية يرتبط بالفرح واللذّة—مثل "فاكه الرجل" أي انبسط. من هنا اشتق اسم <strong>فاكهة</strong> لما يُؤكل للمتعة.</p>
-        </div>
-
-        <div class="ex-card">
-          <h4 style="margin:0 0 8px">زبالة — garbage</h4>
-          <p style="color:var(--muted);margin:0">العربية: "زبل" كان يعني السماد/روث ثم توسّع إلى "ما يُرمى". الإنجليزية: <em>garbage</em> أصلاً أجزاء بقايا من الطهي ثم صار معناها نفايات عامة.</p>
-        </div>
-
-      </div>
     </section>
-
-    <!-- Q&A -->
-    <section class="card" id="qa">
-      <h3 style="font-family:'Playfair Display',serif;margin-top:0">أسئلة وأجوبة — ما ناقشناه</h3>
-
-      <div class="qa">
-        <div class="q" onclick="toggleQ(this)">
-          <div class="q-head">
-            <h4>من اخترع الكلمات؟</h4>
-            <div class="muted-sm">خلاصة</div>
-          </div>
-          <div class="a">
-            لا شخص واحد. الكلمات نتاج اتفاق اجتماعي طويل. فرد بدأ يستخدم صوتًا ليدل على شيء، تقلده الآخرين، وتراكم الاستعمال عبر أجيال حتى استقرّ الصوت ككلمة.
-          </div>
+    
+    <!-- Vaccines Section -->
+    <section id="vaccines" class="py-20 px-4 relative">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 neon-text">مركز التطعيمات</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Vaccine Card 1 -->
+                <div class="vaccine-card glass-effect rounded-2xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-syringe text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">لقاح الإنفلونزا</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">وقاية من فيروسات الإنفلونزا الموسمية</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-green-400 font-bold">متوفر</span>
+                        <button class="px-4 py-2 bg-green-500 bg-opacity-20 rounded-full hover:bg-opacity-40 transition">
+                            حجز الآن
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vaccine Card 2 -->
+                <div class="vaccine-card glass-effect rounded-2xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-virus text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">لقاح كوفيد-19</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">جرعات معززة ضد فيروس كورونا</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-blue-400 font-bold">متوفر</span>
+                        <button class="px-4 py-2 bg-blue-500 bg-opacity-20 rounded-full hover:bg-opacity-40 transition">
+                            حجز الآن
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vaccine Card 3 -->
+                <div class="vaccine-card glass-effect rounded-2xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-baby-carriage text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">لقاحات الأطفال</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">جدول التطعيمات الأساسي للأطفال</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-yellow-400 font-bold">متوفر</span>
+                        <button class="px-4 py-2 bg-yellow-500 bg-opacity-20 rounded-full hover:bg-opacity-40 transition">
+                            حجز الآن
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vaccine Card 4 -->
+                <div class="vaccine-card glass-effect rounded-2xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-shield-alt text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">لقاح الحمى الشوكية</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">وقاية من بكتيريا النيسرية السحائية</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-purple-400 font-bold">متوفر</span>
+                        <button class="px-4 py-2 bg-purple-500 bg-opacity-20 rounded-full hover:bg-opacity-40 transition">
+                            حجز الآن
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vaccine Card 5 -->
+                <div class="vaccine-card glass-effect rounded-2xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-red-400 to-rose-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-mosquito text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">لقاح الحمى الصفراء</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">إلزامي للسفر إلى بعض الدول</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-red-400 font-bold">متوفر</span>
+                        <button class="px-4 py-2 bg-red-500 bg-opacity-20 rounded-full hover:bg-opacity-40 transition">
+                            حجز الآن
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Vaccine Card 6 -->
+                <div class="vaccine-card glass-effect rounded-2xl p-6">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-full flex items-center justify-center ml-4">
+                            <i class="fas fa-lungs-virus text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold">لقاح الالتهاب الرئوي</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">وقاية من بكتيريا المكورات الرئوية</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-teal-400 font-bold">متوفر</span>
+                        <button class="px-4 py-2 bg-teal-500 bg-opacity-20 rounded-full hover:bg-opacity-40 transition">
+                            حجز الآن
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="q" onclick="toggleQ(this)">
-          <div class="q-head">
-            <h4>كيف عرفوا أن كلمة ما مشتقة من جذر معين؟</h4>
-            <div class="muted-sm">علم الجذور</div>
-          </div>
-          <div class="a">
-            في العربية، نظام الجذور الثلاثية يجعل الكلمات المتقاربة في الحروف تظهر معانٍ مشتركة. الباحثون يدرسون الاستخدامات القديمة (الشعر، النصوص) ويجمعون الدلائل ليحدّدوا معنى الجذر.
-          </div>
-        </div>
-
-        <div class="q" onclick="toggleQ(this)">
-          <div class="q-head">
-            <h4>كيف اختُرعت كلمات المعاني المجردة (مثل "فرح" إلى "فاكهة")؟</h4>
-            <div class="muted-sm">شعور → اسم</div>
-          </div>
-          <div class="a">
-            الناس في كثير من الأحيان يسمون الأشياء تبعاً للإحساس الذي تولّده لديهم. "فاكهة" جاءت من الجذر الذي يعني اللذة — لذا الكلمة جاءت من الشعور الذي تمنحه الثمرة.
-          </div>
-        </div>
-
-        <div class="q" onclick="toggleQ(this)">
-          <div class="q-head">
-            <h4>كيف بدأ البشر يتواصلون قبل وجود كلمات؟</h4>
-            <div class="muted-sm">إيماءات وأصوات</div>
-          </div>
-          <div class="a">
-            البداية كانت بالإيماءات، تعابير الوجه، وأصوات غرائزية. عبر التكرار والاتفاق الاجتماعي تحولت بعض الأصوات إلى رموز، ثم تراكمت الرموز لتصبح كلمات وجمل مع تطور الدماغ والحنجرة.
-          </div>
-        </div>
-
-        <div class="q" onclick="toggleQ(this)">
-          <div class="q-head">
-            <h4>كيف يدرس العلماء أصول الكلمات اليوم؟</h4>
-            <div class="muted-sm">منهجيات</div>
-          </div>
-          <div class="a">
-            يعتمدون على: النصوص القديمة والمخطوطات، مقارنة اللغات، قوانين التغير الصوتي، والسياق التاريخي. يقارنون كلمات شبيهة عبر لغات ويتتبعون تغيّر معانيها وشكلها عبر الزمن.
-          </div>
-        </div>
-
-      </div>
     </section>
-
-    <!-- deeper -->
-    <section class="card">
-      <h3 style="font-family:'Playfair Display',serif;margin-top:0">لمحات تاريخية ونماذج علمية</h3>
-      <p style="color:var(--muted);line-height:1.7">
-        <strong>الخليل بن أحمد الفراهيدي</strong> واحد من أشهر علماء اللغة الذين صنّفوا الجذور ودرسوها بشكل منهجي في العربية — لم يخترع اللغة لكنه نظم ما كان مستخدماً وساعد على فهم علاقة الكلمات بجذورها. 
-        <br><br>
-        في علم اللغة الحديث، يوجد نموذجان بارزان لنشوء اللغة: النموذج الطبيعي التدريجي (لغة تطورت عبر الزمن من الإشارات والأصوات) ونماذج أخرى فلسفية ودينية تراها هبات أو وحيًا — لكن الدليل العلمي الأشد قبولاً يشير إلى تطور تدريجي مرتبط بالدماغ والاجتماع البشري.
-      </p>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-4 relative">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 neon-text">خدماتنا</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Service 1 -->
+                <div class="glass-effect rounded-2xl p-8 flex items-start">
+                    <div class="w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center ml-6 flex-shrink-0">
+                        <i class="fas fa-clock text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">العمل على مدار الساعة</h3>
+                        <p class="text-gray-300">خدمات طبية طارئة متاحة 24/7 مع فريق من الأطباء المتخصصين</p>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="glass-effect rounded-2xl p-8 flex items-start">
+                    <div class="w-16 h-16 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center ml-6 flex-shrink-0">
+                        <i class="fas fa-home text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">زيارات منزلية</h3>
+                        <p class="text-gray-300">خدمة الطبيب المنزلي للمرضى الذين لا يستطيعون القدوم للمستوصف</p>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="glass-effect rounded-2xl p-8 flex items-start">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center ml-6 flex-shrink-0">
+                        <i class="fas fa-mobile-alt text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">استشارات عن بعد</h3>
+                        <p class="text-gray-300">استشارات طبية عبر الفيديو مع أفضل الأطباء المتخصصين</p>
+                    </div>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="glass-effect rounded-2xl p-8 flex items-start">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center ml-6 flex-shrink-0">
+                        <i class="fas fa-ambulance text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-3">خدمة الإسعاف</h3>
+                        <p class="text-gray-300">سيارات إسعاف مجهزة بأحدث الأجهزة الطبية للحالات الطارئة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
-  </main>
-
-  <footer>
-    <div class="muted-sm">© 2025 — رحلة معرفية مرئية</div>
-    <div class="sig">Design : Osama Al-Jammaz</div>
-  </footer>
-
-  <script>
-    // smooth scroll
-    function scrollToSection(id){
-      const el = document.getElementById(id);
-      if(!el) return;
-      window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 60, behavior: 'smooth' });
-    }
-
-    // QA toggle
-    function toggleQ(node){
-      node.classList.toggle('open');
-    }
-
-    // small entrance animations for timeline events
-    document.addEventListener('DOMContentLoaded', () => {
-      const events = document.querySelectorAll('.event');
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if(e.isIntersecting){
-            e.target.style.transform = 'none';
-            e.target.style.opacity = 1;
-            io.unobserve(e.target);
-          }
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 relative">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold text-center mb-16 neon-text">تواصل معنا</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="glass-effect rounded-2xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">أرسل لنا رسالة</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block mb-2">الاسم الكامل</label>
+                            <input type="text" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:outline-none focus:border-cyan-400 transition">
+                        </div>
+                        <div>
+                            <label class="block mb-2">البريد الإلكتروني</label>
+                            <input type="email" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:outline-none focus:border-cyan-400 transition">
+                        </div>
+                        <div>
+                            <label class="block mb-2">رقم الهاتف</label>
+                            <input type="tel" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:outline-none focus:border-cyan-400 transition">
+                        </div>
+                        <div>
+                            <label class="block mb-2">الرسالة</label>
+                            <textarea rows="4" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:outline-none focus:border-cyan-400 transition"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-bold hover:scale-105 transition transform">
+                            إرسال الرسالة
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="space-y-8">
+                    <div class="glass-effect rounded-2xl p-6">
+                        <h3 class="text-2xl font-bold mb-4">معلومات التواصل</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-cyan-400 text-xl ml-4"></i>
+                                <p>سملين،  غربي الجامع الجديد </p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-cyan-400 text-xl ml-4"></i>
+                                <p>+963</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-cyan-400 text-xl ml-4"></i>
+                                <p>info@modernclinic.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-effect rounded-2xl p-6">
+                        <h3 class="text-2xl font-bold mb-4">ساعات العمل</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <span>الأحد - الخميس</span>
+                                <span class="text-cyan-400">8:00 ص - 10:00 م</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>الجمعة - السبت</span>
+                                <span class="text-cyan-400">10:00 ص - 8:00 م</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>الطوارئ</span>
+                                <span class="text-red-400">24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="glass-effect py-8 px-4 mt-20">
+        <div class="container mx-auto text-center">
+            <div class="flex justify-center space-x-6 space-x-reverse mb-4">
+                <a href="#" class="text-2xl hover:text-cyan-400 transition"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-2xl hover:text-cyan-400 transition"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-2xl hover:text-cyan-400 transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-2xl hover:text-cyan-400 transition"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2025 مستوصف الصحة سملين. جميع الحقوق محفوظة.</p>
+            <p>Osama Al-Jammaz</p>
+        </div>
+    </footer>
+    
+    <!-- Popup Overlay -->
+    <div id="popup-overlay" class="popup-overlay">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="popup-body">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Three.js Scene Setup
+        let scene, camera, renderer, particles;
+        
+        function initThreeJS() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('canvas-container').appendChild(renderer.domElement);
+            
+            // Create particles
+            const geometry = new THREE.BufferGeometry();
+            const vertices = [];
+            
+            for (let i = 0; i < 1000; i++) {
+                vertices.push(
+                    Math.random() * 2000 - 1000,
+                    Math.random() * 2000 - 1000,
+                    Math.random() * 2000 - 1000
+                );
+            }
+            
+            geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            
+            const material = new THREE.PointsMaterial({
+                color: 0x00ffff,
+                size: 3,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            particles = new THREE.Points(geometry, material);
+            scene.add(particles);
+            
+            // Add lights
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+            
+            const pointLight = new THREE.PointLight(0x00ffff, 1, 100);
+            pointLight.position.set(10, 10, 10);
+            scene.add(pointLight);
+            
+            camera.position.z = 500;
+            
+            animate();
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            particles.rotation.x += 0.0005;
+            particles.rotation.y += 0.0005;
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
-      }, {threshold:0.15});
-
-      events.forEach(ev => {
-        ev.style.opacity = 0;
-        ev.style.transform = 'translateY(18px)';
-        io.observe(ev);
-      });
-    });
-  </script>
-
+        
+        // Initialize Three.js
+        initThreeJS();
+        
+        // Popup Functions
+        const popupData = {
+            cardiology: {
+                title: 'قسم القلب',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-center">قسم أمراض القلب والأوعية الدموية</h2>
+                    <div class="space-y-6">
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-cyan-400">خدمات القسم</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> فحص وتشخيص أمراض القلب</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> قسطرة القلب التشخيصية</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> علاج قصور القلب</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> متابعة أمراض الصمامات</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> تخطيط القلب الكهربائي</li>
+                            </ul>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-cyan-400">الأجهزة المتوفرة</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <i class="fas fa-heartbeat text-4xl text-red-400 mb-2"></i>
+                                    <p>جهاز تخطيط القلب</p>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-microscope text-4xl text-blue-400 mb-2"></i>
+                                    <p>جهاز الموجات فوق الصوتية</p>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-x-ray text-4xl text-purple-400 mb-2"></i>
+                                    <p>جهاز الأشعة السينية</p>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-laptop-medical text-4xl text-green-400 mb-2"></i>
+                                    <p>نظام المراقبة المستمرة</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full py-3 bg-gradient-to-r from-red-500 to-pink-600 rounded-lg font-bold hover:scale-105 transition transform">
+                            حجز موعد في القسم
+                        </button>
+                    </div>
+                `
+            },
+            pediatrics: {
+                title: 'قسم الأطفال',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-center">قسم طب الأطفال</h2>
+                    <div class="space-y-6">
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-green-400">خدمات القسم</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> الفحوصات الدورية للأطفال</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> التطعيمات الأساسية</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> علاج الأمراض المعدية</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> متابعة النمو والتطور</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> استشارات التغذية</li>
+                            </ul>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-green-400">جدول التطعيمات</h3>
+                            <div class="space-y-4">
+                                <div class="timeline-item relative pr-8">
+                                    <h4 class="font-bold">الولادة - 2 شهر</h4>
+                                    <p class="text-gray-300">BCG, Hepatitis B, OPV</p>
+                                </div>
+                                <div class="timeline-item relative pr-8">
+                                    <h4 class="font-bold">4 - 6 شهر</h4>
+                                    <p class="text-gray-300">DPT, Hib, PCV</p>
+                                </div>
+                                <div class="timeline-item relative pr-8">
+                                    <h4 class="font-bold">9 - 12 شهر</h4>
+                                    <p class="text-gray-300">MMR, Varicella</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full py-3 bg-gradient-to-r from-green-500 to-teal-600 rounded-lg font-bold hover:scale-105 transition transform">
+                            حجز موعد في القسم
+                        </button>
+                    </div>
+                `
+            },
+            dermatology: {
+                title: 'قسم الجلدية',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-center">قسم الأمراض الجلدية</h2>
+                    <div class="space-y-6">
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-purple-400">خدمات القسم</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> علاج حب الشباب</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> إزالة الشعر بالليزر</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> علاج البهاق</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> تجديد البشرة</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> علاج الصدفية</li>
+                            </ul>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-purple-400">أحدث التقنيات</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <i class="fas fa-laser text-4xl text-purple-400 mb-2"></i>
+                                    <p>ليزر CO2</p>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-sun text-4xl text-yellow-400 mb-2"></i>
+                                    <p>العلاج الضوئي</p>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-snowflake text-4xl text-blue-400 mb-2"></i>
+                                    <p>العلاج بالتبريد</p>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-magic text-4xl text-pink-400 mb-2"></i>
+                                    <p>الميزوثيرابي</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full py-3 bg-gradient-to-r from-purple-500 to-indigo-600 rounded-lg font-bold hover:scale-105 transition transform">
+                            حجز موعد في القسم
+                        </button>
+                    </div>
+                `
+            },
+            orthopedics: {
+                title: 'قسم العظام',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-center">قسم جراحة العظام والمفاصل</h2>
+                    <div class="space-y-6">
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-orange-400">خدمات القسم</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> جراحة استبدال المفاصل</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> علاج الكسور</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> جراحة العمود الفقري</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> علاج آلام الظهر</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> العلاج الطبيعي</li>
+                            </ul>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-orange-400">الإجراءات الجراحية</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-orange-500 bg-opacity-10 rounded-lg">
+                                    <span>استبدال مفصل الركبة</span>
+                                    <span class="text-orange-400">متاح</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-orange-500 bg-opacity-10 rounded-lg">
+                                    <span>استبدال مفصل الورك</span>
+                                    <span class="text-orange-400">متاح</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-orange-500 bg-opacity-10 rounded-lg">
+                                    <span>جراحة المنظار</span>
+                                    <span class="text-orange-400">متاح</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full py-3 bg-gradient-to-r from-orange-500 to-red-600 rounded-lg font-bold hover:scale-105 transition transform">
+                            حجز موعد في القسم
+                        </button>
+                    </div>
+                `
+            },
+            radiology: {
+                title: 'قسم الأشعة',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-center">قسم الأشعة التشخيصية</h2>
+                    <div class="space-y-6">
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-blue-400">خدمات القسم</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> الأشعة السينية</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> الأشعة المقطعية (CT)</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> الرنين المغناطيسي (MRI)</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> الموجات فوق الصوتية</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> تصوير الثدي الشعاعي</li>
+                            </ul>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-blue-400">الأجهزة المتطورة</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center">
+                                    <i class="fas fa-x-ray text-4xl text-blue-400 mb-2"></i>
+                                    <p>جهاز CT 128 شريحة</p>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-magnet text-4xl text-purple-400 mb-2"></i>
+                                    <p>جهاز MRI 3 تسلا</p>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-wave-square text-4xl text-green-400 mb-2"></i>
+                                    <p>جهاز الموجات فوق الصوتية</p>
+                                </div>
+                                <div class="text-center">
+                                    <i class="fas fa-radiation text-4xl text-yellow-400 mb-2"></i>
+                                    <p>جهاز التصوير الشعاعي</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full py-3 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-lg font-bold hover:scale-105 transition transform">
+                            حجز موعد في القسم
+                        </button>
+                    </div>
+                `
+            },
+            laboratory: {
+                title: 'قسم المختبر',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-center">قسم المختبرات الطبية</h2>
+                    <div class="space-y-6">
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-yellow-400">خدمات القسم</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> تحاليل الدم الشاملة</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> تحاليل الهرمونات</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> الزراعة الميكروبيولوجية</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> تحاليل المناعة</li>
+                                <li class="flex items-center"><i class="fas fa-check-circle text-green-400 ml-2"></i> الفحوصات الجينية</li>
+                            </ul>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6">
+                            <h3 class="text-xl font-bold mb-3 text-yellow-400">أوقات استلام النتائج</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-yellow-500 bg-opacity-10 rounded-lg">
+                                    <span>تحاليل الدم العاجلة</span>
+                                    <span class="text-yellow-400">ساعتان</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-yellow-500 bg-opacity-10 rounded-lg">
+                                    <span>تحاليل الروتين</span>
+                                    <span class="text-yellow-400">24 ساعة</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-yellow-500 bg-opacity-10 rounded-lg">
+                                    <span>الزراعة الميكروبيولوجية</span>
+                                    <span class="text-yellow-400">3-5 أيام</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full py-3 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-lg font-bold hover:scale-105 transition transform">
+                            حجز موعد في القسم
+                        </button>
+                    </div>
+                `
+            },
+            appointment: {
+                title: 'حجز موعد',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-center">حجز موعد طبي</h2>
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block mb-2">القسم الطبي</label>
+                            <select class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:outline-none focus:border-cyan-400 transition">
+                                <option>قسم القلب</option>
+                                <option>قسم الأطفال</option>
+                                <option>قسم الجلدية</option>
+                                <option>قسم العظام</option>
+                                <option>قسم الأشعة</option>
+                                <option>قسم المختبر</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block mb-2">الطبيب</label>
+                            <select class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:outline-none focus:border-cyan-400 transition">
+                                <option>د. أحمد محمد</option>
+                                <option>د. فاطمة علي</option>
+                                <option>د. خالد سالم</option>
+                                <option>د. نورة أحمد</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block mb-2">التاريخ</label>
+                            <input type="date" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:outline-none focus:border-cyan-400 transition">
+                        </div>
+                        <div>
+                            <label class="block mb-2">الوقت</label>
+                            <select class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:outline-none focus:border-cyan-400 transition">
+                                <option>9:00 ص</option>
+                                <option>10:00 ص</option>
+                                <option>11:00 ص</option>
+                                <option>12:00 م</option>
+                                <option>1:00 م</option>
+                                <option>2:00 م</option>
+                                <option>3:00 م</option>
+                                <option>4:00 م</option>
+                                <option>5:00 م</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block mb-2">ملاحظات</label>
+                            <textarea rows="3" class="w-full px-4 py-3 bg-white bg-opacity-10 rounded-lg border border-white border-opacity-20 focus:outline-none focus:border-cyan-400 transition"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-bold hover:scale-105 transition transform">
+                            تأكيد الحجز
+                        </button>
+                    </form>
+                `
+            },
+            departments: {
+                title: 'جميع الأقسام',
+                content: `
+                    <h2 class="text-3xl font-bold mb-6 text-center">أقسام المستوصف</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass-effect rounded-xl p-6 cursor-pointer hover:bg-white hover:bg-opacity-10 transition" onclick="openPopup('cardiology')">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-heartbeat text-3xl text-red-400 ml-4"></i>
+                                <h3 class="text-xl font-bold">قسم القلب</h3>
+                            </div>
+                            <p class="text-gray-300">تشخيص وعلاج أمراض القلب</p>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6 cursor-pointer hover:bg-white hover:bg-opacity-10 transition" onclick="openPopup('pediatrics')">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-baby text-3xl text-green-400 ml-4"></i>
+                                <h3 class="text-xl font-bold">قسم الأطفال</h3>
+                            </div>
+                            <p class="text-gray-300">رعاية صحية متكاملة للأطفال</p>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6 cursor-pointer hover:bg-white hover:bg-opacity-10 transition" onclick="openPopup('dermatology')">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-spa text-3xl text-purple-400 ml-4"></i>
+                                <h3 class="text-xl font-bold">قسم الجلدية</h3>
+                            </div>
+                            <p class="text-gray-300">علاج الأمراض الجلدية والتجميل</p>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6 cursor-pointer hover:bg-white hover:bg-opacity-10 transition" onclick="openPopup('orthopedics')">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-bone text-3xl text-orange-400 ml-4"></i>
+                                <h3 class="text-xl font-bold">قسم العظام</h3>
+                            </div>
+                            <p class="text-gray-300">جراحة العظام والمفاصل</p>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6 cursor-pointer hover:bg-white hover:bg-opacity-10 transition" onclick="openPopup('radiology')">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-x-ray text-3xl text-blue-400 ml-4"></i>
+                                <h3 class="text-xl font-bold">قسم الأشعة</h3>
+                            </div>
+                            <p class="text-gray-300">تصوير طبي تشخيصي</p>
+                        </div>
+                        <div class="glass-effect rounded-xl p-6 cursor-pointer hover:bg-white hover:bg-opacity-10 transition" onclick="openPopup('laboratory')">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-vial text-3xl text-yellow-400 ml-4"></i>
+                                <h3 class="text-xl font-bold">قسم المختبر</h3>
+                            </div>
+                            <p class="text-gray-300">تحاليل طبية دقيقة</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+        
+        function openPopup(type) {
+            const overlay = document.getElementById('popup-overlay');
+            const body = document.getElementById('popup-body');
+            
+            if (popupData[type]) {
+                body.innerHTML = popupData[type].content;
+                overlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closePopup() {
+            const overlay = document.getElementById('popup-overlay');
+            overlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close popup when clicking outside
+        document.getElementById('popup-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+        
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            // Implementation for mobile menu
+            alert('قائمة الجوال قيد التطوير');
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Form submission handlers
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً.');
+                this.reset();
+                closePopup();
+            });
+        });
+    </script>
 </body>
 </html>
